@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>Software TCC</title>
+	<link rel="manifest" href="/tcc/manifest.json">
+    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+    
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="instascan.min.js"></script>	
+</head>
+<body>
+	<script type="text/javascript">
+		function ler1(){
+			var url = "http://www.fazenda.pr.gov.br/nfce/qrcode?p=41190415121416000216651130001007121001007132|2|1|1|26523781CCE8F1656DB5ED5DA9D094D9C8BB3A98";
+			$("#url").val(url);
+			document.form1.submit();
+		}
+      function ler(){
+      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      scanner.addListener('scan', function (content) {
+        //alert(content);
+        $("#url").val(content);
+        document.form1.submit();
+      });
+      Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+          scanner.start(cameras[0]);
+        } else {
+          console.error('No cameras found.');
+        }
+      }).catch(function (e) {
+        console.error(e);
+      });
+		}
+    </script>
+	<div class="bar bar-header bar-assertive" style="position: static;">
+                <div class="buttons buttons-left header-item">
+                    <span class="left-buttons">
+                        <button class="button button-icon button-clear ion-navicon"></button>
+                    </span>
+                </div>
+                <div class="h1 title">Software de Controle de Compras</div>
+                <div class="buttons buttons-right header-item">
+                    <span class="right-buttons">
+                        <button class="button button-icon button-clear ion-android-more-vertical"></button>
+                    </span>
+                </div>
+            </div>
+    
+    <div>
+    <video id="preview"></video>
+    <!--<button class="button button-block button-calm" id="botao" onclick='ler1();'>Ler QRCode</button>-->
+    <form name="form1" action="site.php" method="post">
+    	<input id="url" type="hidden" name="url">
+    	<!--<input type="submit" name="submit" class="button button-block button-calm">-->
+    	<a href="javascript: ler()" class="button button-block button-calm">Ler</a>
+    </form>
+	</div>
+        <table id="retorno" border="0"></table>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>Software TCC</title>
+	<link rel="manifest" href="/tcc/manifest.json">
+    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+	<script>
+    navigator.serviceWorker && navigator.serviceWorker.register('./sw.js').then(function(registration) {
+  console.log('SW funcionando, registrado com o escopo: ', registration.scope);
+});
+  /*if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/tcc/swqr.js')
+      .then(function () {
+        console.log('service worker registered');
+      })
+      .catch(function () {
+        console.warn('service worker failed');
+      });
+  }*/
+</script>
+</head>
+<body>
+	<div class="bar bar-header bar-assertive" style="position: static;">
+                <div class="buttons buttons-left header-item">
+                    <span class="left-buttons">
+                        <button class="button button-icon button-clear ion-navicon"></button>
+                    </span>
+                </div>
+                <div class="h1 title">Software de Controle de Compras</div>
+                <div class="buttons buttons-right header-item">
+                    <span class="right-buttons">
+                        <button class="button button-icon button-clear ion-android-more-vertical"></button>
+                    </span>
+                </div>
+            </div>
+    <div>
+    	<a href="lerQRCode.html" class="button button-block button-calm">Ler QRCode</a>
+      <a href="compras.html" class="button button-block button-calm">Compras</a>
+      <a href="" class="button button-block button-calm">Pesquisar</a>   
+</body>
+</html>

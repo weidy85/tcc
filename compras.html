@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<title>Software TCC</title>
+	<link rel="manifest" href="/tcc/manifest.json">
+    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        var request, request1, db, transaction;
+        $(document).ready(function(){
+        var i = 1;
+
+        request = window.indexedDB.open("compras", 1);
+
+        request.onupgradeneeded = function(event){
+            console.log("Atualizando");
+            db = event.target.result;
+            var objectStore = db.createObjectStore("compra", { keyPath : "codigo" });
+        };
+        request.onerror = function(event){
+            console.log("Erro ao abrir o banco de dados", event);
+        };
+        request.onsuccess = function(event){
+            console.log("Banco de dados aberto com sucesso");
+            db = event.target.result;
+        };
+        });
+        function atualizar(){
+            var i = 1;
+            var transaction = db.transaction('compra', "readonly");
+var store = transaction.objectStore('compra');
+var request = store.openCursor();
+request.onsuccess = function (event) {
+    var cursor = event.target.result;
+    if (cursor) {
+        var row$ = $('<tr/>');
+
+            //row$.append($('<td/>').html(cursor.value.codigo + " - Produto: " + cursor.value.produto));
+            row$.append($('<td/>').html(cursor.value.codigo));
+            row$.append($('<td/>').html(cursor.value.produto));
+            row$.append($('<td/>').html(cursor.value.qnt));
+            row$.append($('<td/>').html(cursor.value.run));
+            row$.append($('<td/>').html(cursor.value.rvl));
+            row$.append($('<td/>').html(cursor.value.valor));
+            $("#retorno").append(row$);
+
+        i++;
+        cursor.continue();
+    }
+}
+
+        }
+    </script>
+</head>
+<body>
+	<div class="bar bar-header bar-assertive" style="position: static;">
+                <div class="buttons buttons-left header-item">
+                    <span class="left-buttons">
+                        <button class="button button-icon button-clear ion-navicon"></button>
+                    </span>
+                </div>
+                <div class="h1 title">Software de Controle de Compras</div>
+                <div class="buttons buttons-right header-item">
+                    <span class="right-buttons">
+                        <button class="button button-icon button-clear ion-android-more-vertical"></button>
+                    </span>
+                </div>
+            </div>
+            <a href="javascript: atualizar()" class="button button-block button-calm">Atualizar</a>
+    <div>
+        <table id="retorno" border="0"></table>
+    </div>      
+</body>
+</html>
