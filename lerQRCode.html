@@ -21,8 +21,9 @@
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
       scanner.addListener('scan', function (content) {
         //alert(content);
+        console.log(content);
         $("#url").val(content);
-        document.form1.submit();
+        //document.form1.submit();
       });
       Instascan.Camera.getCameras().then(function (cameras) {
         if (cameras.length > 0) {
@@ -54,9 +55,10 @@
     <!--<button class="button button-block button-calm" id="botao" onclick='ler1();'>Ler QRCode</button>-->
     <form name="form1" action="site.php" method="post">
     	<input id="url" type="hidden" name="url">
-    	<!--<input type="submit" name="submit" class="button button-block button-calm">-->
-    	<a href="javascript: ler()" class="button button-block button-calm">Ler</a>
+    	<input type="submit" name="submit" class="button button-block button-calm">
     </form>
+    <a href="javascript: ler()" class="button button-block button-calm">Ler</a>
+    <a href="javascript: ler1()" class="button button-block button-calm">Ler Direto</a>
 	</div>
         <table id="retorno" border="0"></table>
 </body>
